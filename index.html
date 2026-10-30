@@ -1,0 +1,645 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>안락온실 · 강소현 Unity 클라이언트 포트폴리오</title>
+<meta name="description" content="외면했던 현실과 마주하는 1인칭 심리 공포 방탈출 '안락온실' — 팀 총괄·프로그래밍 80% 담당. Unity 6, C#, STOVE PC·VR 출시.">
+<meta property="og:title" content="안락온실 · 강소현 포트폴리오">
+<meta property="og:description" content="외면했던 현실과 마주하는 1인칭 심리 공포 방탈출 · Unity 6, C# · STOVE PC·VR">
+<meta property="og:image" content="assets/piano-warm.webp">
+<meta property="og:type" content="website">
+<link rel="icon" href="assets/gauge-brain.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Nanum+Myeongjo:wght@400;700;800&amp;family=IBM+Plex+Sans+KR:wght@400;500;600&amp;display=swap" rel="stylesheet">
+<style>
+body{margin:0}
+html{scroll-behavior:smooth}
+a{color:#F3E9D6}a:hover{color:#FFFFFF}
+dd{min-width:0;overflow-wrap:anywhere}
+.wrap{width:100%;max-width:1160px;margin:0 auto;padding:0 24px;box-sizing:border-box}
+.panel{position:relative;color:#2A1A12;background-color:#E0D0AE;background-image:radial-gradient(circle at 12% 18%,rgba(122,78,36,.16),rgba(122,78,36,0) 38%),radial-gradient(circle at 88% 82%,rgba(122,78,36,.18),rgba(122,78,36,0) 42%),radial-gradient(circle at 70% 10%,rgba(150,110,60,.10),rgba(150,110,60,0) 30%),repeating-linear-gradient(to bottom,rgba(92,62,38,.28) 0,rgba(92,62,38,.28) 1px,transparent 1px,transparent 7px);background-size:auto,auto,auto,100% 29px;background-repeat:no-repeat;background-position:0 0,0 0,0 0,0 14px;box-shadow:inset 0 0 70px rgba(110,66,26,.38),inset 0 0 0 1px rgba(90,58,30,.35),0 26px 60px rgba(0,0,0,.55);padding:56px 44px 44px;box-sizing:border-box}
+.panel::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:url(assets/grain.png);background-size:120px 120px;opacity:.22;mix-blend-mode:multiply}
+.roombg{position:fixed;inset:0;z-index:0;pointer-events:none;background:#140806 url(assets/room-bg.webp) center/cover no-repeat}
+@media (max-width:700px){.roombg{background-image:url(assets/room-bg-sm.webp)}}
+.grain{background-image:url(assets/grain.png);background-size:120px 120px}
+.hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:48px;align-items:center}
+.facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
+.kv{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:44px}
+.cards3{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px;align-items:start}
+.cmp{display:grid;grid-template-columns:minmax(0,1.4fr) minmax(0,1fr);gap:40px;align-items:center}
+.btn{display:inline-flex;align-items:center;gap:8px;min-height:44px;padding:0 18px;border:1.5px solid #2A1A12;color:#2A1A12;text-decoration:none;font-size:15px;font-weight:600;box-sizing:border-box;transition:background-color .2s,color .2s}
+.btn:hover{background:#2A1A12;color:#EFE4CB}
+.btn.primary{background:#2A1A12;border-color:#2A1A12;color:#F1E7D0}
+.btn.primary:hover{background:#4A1E16;border-color:#4A1E16;color:#FFFFFF}
+.piano{position:relative;display:flex;height:58px;width:440px;background:#070404;border:1px solid #000;box-shadow:inset 0 5px 0 #24130E;box-sizing:border-box;padding-top:5px}
+.wk{flex:1 1 0;min-width:0;display:flex;align-items:flex-end;justify-content:center;padding:0 2px 7px;background:linear-gradient(#E8DCC3,#D3C4A6);border-right:1px solid #5E4C3A;border-radius:0 0 3px 3px;box-shadow:inset 0 -6px 0 #B9A787;color:#2A1712;font-size:12px;font-weight:500;letter-spacing:-.01em;text-decoration:none;white-space:nowrap;box-sizing:border-box;transition:background .15s,box-shadow .15s}
+.wk:last-child{border-right:0}
+.wk:hover{background:linear-gradient(#F4EBD8,#E2D5BA);color:#2A1712}
+.wk:focus-visible{outline:2px solid #8FB3AB;outline-offset:-4px}
+.wk.on{background:linear-gradient(#C3B293,#B6A485);box-shadow:inset 0 -2px 0 #98876A,inset 0 4px 8px rgba(0,0,0,.35);color:#0E0605;font-weight:600}
+.bk{position:absolute;top:5px;height:34%;width:7.4%;background:linear-gradient(#2B211D,#060303);border-radius:0 0 3px 3px;box-shadow:0 2px 0 #000,inset 0 -4px 0 #3A2C26;pointer-events:none}
+.paper{position:relative;z-index:1;background-color:#F0E6CF;color:#24140E;border:1px solid rgba(80,50,28,.3);box-shadow:0 3px 0 rgba(80,50,28,.18)}
+.staff{height:25px;background-image:repeating-linear-gradient(to bottom,#B3A385 0,#B3A385 1px,transparent 1px,transparent 6px)}
+.paper a{color:#1F4A43}.paper a:hover{color:#10302A}
+details>summary{list-style:none;cursor:pointer}
+details>summary::-webkit-details-marker{display:none}
+details .plus{transition:transform .2s}
+details[open] .plus{transform:rotate(45deg)}
+.mono{display:flex;justify-content:center;opacity:0;transform:translateY(10px);transition:opacity 1.2s ease,transform 1.2s ease}
+.mono.on{opacity:1;transform:none}
+.mono p{margin:0;max-width:760px;padding:16px 56px;background:linear-gradient(to right,rgba(0,0,0,0),rgba(0,0,0,.88) 18%,rgba(0,0,0,.88) 82%,rgba(0,0,0,0));font-family:'Nanum Myeongjo',serif;font-size:21px;line-height:1.6;color:#F3E9D6;text-align:center}
+.flora{position:fixed;inset:0;pointer-events:none;z-index:0}
+.sway{position:absolute;bottom:-6px;transform-origin:50% 100%;animation:sway 7s ease-in-out infinite}
+.sway svg{display:block;width:100%;height:100%;transition:clip-path .9s cubic-bezier(.2,.7,.2,1)}
+.sway path{transition:fill .8s,stroke .8s}
+.vine{position:absolute;top:0;bottom:0;width:150px}
+.vine svg{display:block;width:100%;height:100%;transition:clip-path 1.1s cubic-bezier(.2,.7,.2,1)}
+@keyframes sway{0%,100%{transform:rotate(-1.4deg)}50%{transform:rotate(1.8deg)}}
+.flash{animation:flash 11s linear infinite}
+@keyframes flash{0%,60%{opacity:0}60.6%{opacity:.9}61.4%{opacity:0}62.4%{opacity:.65}63%{opacity:0}100%{opacity:0}}
+.flicker{opacity:0}
+.flicker.on{animation:flick 6.5s linear infinite}
+@keyframes flick{0%,38%{opacity:0}39%{opacity:.55}40%{opacity:.1}41.5%{opacity:.7}43%{opacity:0}76%{opacity:0}77%{opacity:.4}78%{opacity:0}100%{opacity:0}}
+.range{width:100%;accent-color:#8C2A22;height:28px}
+@media (max-width:960px){
+.hero,.cmp{grid-template-columns:minmax(0,1fr);gap:32px}
+.cards3{grid-template-columns:minmax(0,1fr)}
+.kv{grid-template-columns:minmax(0,1fr);gap:28px}
+.piano{order:9;width:100%;height:50px}
+.wk{font-size:11px}
+.vine{width:70px;opacity:.75}
+.sway{max-width:44vw}
+}
+@media (max-width:600px){
+.panel{padding:44px 20px 24px}
+.facts{grid-template-columns:minmax(0,1fr)}
+.mono p{padding:14px 28px;font-size:18px}
+}
+@media (prefers-reduced-motion: reduce){
+html{scroll-behavior:auto}
+.mono{opacity:1;transform:none;transition:none}
+.sway,.flash,.flicker.on{animation:none}
+.sway svg,.vine svg,.sway path{transition:none}
+}
+</style>
+<style>:root{--bg:#4A2D1C;--bgFilter:brightness(.62) saturate(1.12);--green:.75;--tint:0;--shade:.12;--warm:1;--red:0;--grain:.18;--clipTop:0%;--brainFilter:none;--gaugeText:#F3E9D6;--cmpRatio:16 / 9;--cmpClip:0%;--cmpLine:100%}</style>
+<noscript><style>.mono{opacity:1;transform:none}</style></noscript>
+</head>
+<body>
+<div id="top" style="position: relative; min-height: 100vh; background-color: var(--bg); color: #F3E9D6; font-family: 'IBM Plex Sans KR', system-ui, sans-serif; transition: background-color .7s ease">
+
+  <div aria-hidden="true" class="roombg" style="filter: var(--bgFilter); transition: filter .7s"></div>
+  <div aria-hidden="true" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; background: #4E8A45; mix-blend-mode: soft-light; opacity: var(--green); transition: opacity .7s"></div>
+  <div aria-hidden="true" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(70% 60% at 30% 70%, rgba(70,120,60,.22), rgba(70,120,60,0) 70%); opacity: var(--green); transition: opacity .7s"></div>
+  <div aria-hidden="true" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; background: #8E1410; mix-blend-mode: multiply; opacity: var(--tint); transition: opacity .7s"></div>
+  <div aria-hidden="true" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; background: #070302; opacity: var(--shade); transition: opacity .7s"></div>
+  <div aria-hidden="true" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: var(--warm); background: radial-gradient(55% 45% at 80% 14%, rgba(255,190,110,.2), rgba(255,190,110,0) 70%); transition: opacity .7s"></div>
+  <div aria-hidden="true" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: var(--red); background: radial-gradient(75% 70% at 50% 45%, rgba(120,8,6,0) 30%, rgba(150,12,8,.5) 72%, rgba(30,0,0,.92) 100%); transition: opacity .7s"></div>
+  <div aria-hidden="true" class="grain" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: var(--grain); mix-blend-mode: overlay"></div>
+  <div aria-hidden="true" class="flicker" id="flicker" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; background: #000"></div>
+
+  <div class="flora" aria-hidden="true" id="flora"></div>
+
+  <header style="position: sticky; top: 0; z-index: 20; background-color: rgba(10,5,4,.94); border-bottom: 1px solid rgba(243,233,214,.12)">
+    <div class="wrap" style="display: flex; align-items: center; gap: 18px; min-height: 72px; flex-wrap: wrap; padding-top: 7px; padding-bottom: 7px">
+      <div role="img" id="gaugeBox" aria-label="안락 수치 100%" style="display: flex; align-items: center; gap: 10px">
+        <div style="position: relative; width: 34px; height: 44px; flex: none">
+          <img src="assets/gauge-back.png" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%">
+          <img src="assets/gauge-brain.png" alt="" style="position: absolute; inset: 0; width: 100%; height: 100%; clip-path: inset(var(--clipTop) 0 0 0); filter: var(--brainFilter); transition: clip-path .4s, filter .4s">
+        </div>
+        <div style="display: flex; flex-direction: column; line-height: 1.2">
+          <span style="font-size: 11px; letter-spacing: .08em; color: #CDBB9C">안락 수치</span>
+          <span style="font-size: 15px; font-weight: 600; font-variant-numeric: tabular-nums; color: var(--gaugeText)"><span id="gval">100</span>%</span>
+        </div>
+      </div>
+      <a href="#top" style="text-decoration: none; display: flex; flex-direction: column; line-height: 1.25; margin-right: auto">
+        <span style="font-size: 15px; font-weight: 600; color: #F3E9D6">강소현</span>
+        <span style="font-size: 12px; color: #CDBB9C">Unity 클라이언트 개발자</span>
+      </a>
+      <nav aria-label="섹션 이동" class="piano" id="piano"></nav>
+    </div>
+  </header>
+
+  <main style="position: relative; z-index: 1; display: flex; flex-direction: column; gap: 64px; padding: 48px 0 0">
+
+    <section aria-labelledby="h-hero" class="wrap">
+      <div class="panel hero">
+        <div style="display: flex; flex-direction: column; gap: 26px">
+          <div style="display: flex; flex-direction: column; gap: 14px">
+            <p style="margin: 0; font-size: 14px; font-weight: 500; letter-spacing: .06em; color: #6B4A33">팀 총괄 · 프로그래밍 80% 담당 프로젝트</p>
+            <h1 id="h-hero" style="margin: 0"><img src="assets/logo.webp" alt="" width="554" height="156" style="display: block; width: 100%; max-width: 440px; height: auto"><span style="display: block; margin-top: 10px; font-family: 'Nanum Myeongjo', serif; font-size: 26px; font-weight: 700; letter-spacing: .04em; color: #2A1A12">안락온실</span></h1>
+            <p style="margin: 0; font-size: 19px; line-height: 1.55; color: #2A1A12">외면했던 현실과 마주하는<br>1인칭 심리 공포 방탈출</p>
+          </div>
+          <dl class="facts" style="margin: 0; border-top: 1px solid rgba(70,44,26,.22)">
+            <div style="padding: 12px 16px 12px 0; border-bottom: 1px solid rgba(70,44,26,.22)"><dt style="font-size: 12px; color: #6B5340">역할</dt><dd style="margin: 2px 0 0; font-size: 16px; font-weight: 500">팀 총괄, 프로그래밍 80%</dd></div>
+            <div style="padding: 12px 16px 12px 0; border-bottom: 1px solid rgba(70,44,26,.22)"><dt style="font-size: 12px; color: #6B5340">기간 · 팀</dt><dd style="margin: 2px 0 0; font-size: 16px; font-weight: 500">약 1개월 · 4인<span style="display: block; font-size: 12px; font-weight: 400; color: #6B5340">2026.07.24 – 09.10</span></dd></div>
+            <div style="padding: 12px 16px 12px 0; border-bottom: 1px solid rgba(70,44,26,.22)"><dt style="font-size: 12px; color: #6B5340">엔진 · 언어</dt><dd style="margin: 2px 0 0; font-size: 16px; font-weight: 500">Unity 6, C#</dd></div>
+            <div style="padding: 12px 16px 12px 0; border-bottom: 1px solid rgba(70,44,26,.22)"><dt style="font-size: 12px; color: #6B5340">출시</dt><dd style="margin: 2px 0 0; font-size: 16px; font-weight: 500">STOVE PC · VR</dd></div>
+          </dl>
+          <div style="display: flex; flex-wrap: wrap; gap: 10px">
+            <a class="btn primary" href="https://store.onstove.com/games/105915" target="_blank" rel="noopener">STOVE PC</a>
+            <a class="btn primary" href="https://store.onstove.com/games/106032" target="_blank" rel="noopener">STOVE VR</a>
+            <a class="btn" href="#collab">협업 가이드</a>
+          </div>
+        </div>
+
+        <div style="display: flex; flex-direction: column; gap: 10px">
+          <a href="https://youtu.be/3AHM6T4iAAo" target="_blank" rel="noopener" aria-label="트레일러 영상 보기, 유튜브 새 탭" style="display: block; position: relative; padding: 10px; background-color: #1A0D09; border: 1px solid #3A2117; box-shadow: inset 0 0 0 4px #0E0705; text-decoration: none">
+            <span style="display: block; position: relative; overflow: hidden; aspect-ratio: 16 / 9; background: #0A0403">
+              <img src="assets/piano-warm.webp" alt="안락온실 피아노 방 장면" width="1280" height="720" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.8) contrast(1.08) brightness(.9)">
+              <img class="flash" src="assets/piano-red.webp" alt="" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0">
+              <span class="grain" aria-hidden="true" style="position: absolute; inset: 0; opacity: .5; mix-blend-mode: overlay"></span>
+              <span aria-hidden="true" style="position: absolute; inset: 0; background: radial-gradient(80% 75% at 50% 45%, rgba(0,0,0,0) 45%, rgba(0,0,0,.65) 100%)"></span>
+            </span>
+            <span style="position: absolute; left: 10px; right: 10px; bottom: 10px; display: flex; align-items: center; gap: 14px; padding: 44px 18px 16px; background: linear-gradient(to top, rgba(6,3,2,.94), rgba(6,3,2,0))">
+              <span style="display: grid; place-items: center; width: 52px; height: 52px; border-radius: 50%; background: #F3E9D6; color: #24140E; flex: none">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M8 5v14l11-7z"></path></svg>
+              </span>
+              <span style="display: flex; flex-direction: column; gap: 2px; color: #F3E9D6">
+                <span style="font-size: 16px; font-weight: 600">트레일러 보기 · 1:38</span>
+                <span style="font-size: 13px; color: #DCCBAE">한국어 자막 · 시스템 설명 자막 포함</span>
+              </span>
+            </span>
+          </a>
+          <p style="margin: 0; font-size: 13px; color: #6B5340">영상은 누를 때만 불러옵니다. 아래로 내릴수록 안락 수치가 떨어집니다.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="summary" aria-labelledby="h-summary" class="wrap" style="display: flex; flex-direction: column; gap: 28px; scroll-margin-top: 96px">
+      <div class="mono" data-mono="1"><p>“은은한 조명이 방 안을 따뜻하게 비춘다.”</p></div>
+      <div class="panel" style="display: flex; flex-direction: column; gap: 32px">
+        <h2 id="h-summary" style="margin: 0; font-family: 'Nanum Myeongjo', serif; font-size: 34px; font-weight: 700">프로젝트 요약</h2>
+        <div class="kv">
+          <div style="display: flex; flex-direction: column; gap: 14px">
+            <h3 style="margin: 0; font-size: 14px; font-weight: 600; letter-spacing: .06em; color: #6B4A33">내가 한 일</h3>
+            <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; border-top: 1px solid rgba(70,44,26,.2)">
+              <li style="padding: 14px 0; border-bottom: 1px solid rgba(70,44,26,.2); font-size: 16px; line-height: 1.55"><strong style="font-weight: 600">총괄</strong> — 일정 관리, 회의 진행, 구현 80%, 빌드·출시 대응</li>
+              <li style="padding: 14px 0; border-bottom: 1px solid rgba(70,44,26,.2); font-size: 16px; line-height: 1.55"><strong style="font-weight: 600">게임 플로우</strong> — 독백·선택지·퍼즐 진행을 FSM으로 설계·구현</li>
+              <li style="padding: 14px 0; border-bottom: 1px solid rgba(70,44,26,.2); font-size: 16px; line-height: 1.55"><strong style="font-weight: 600">안락 수치 시스템</strong> — EventBus로 참조를 최소화해, 수치에 따라 함께 바뀌는 고양이·액자·바닥과 베이크된 라이트맵에 변화를 알림</li>
+              <li style="padding: 14px 0; border-bottom: 1px solid rgba(70,44,26,.2); font-size: 16px; line-height: 1.55"><strong style="font-weight: 600">에디터 툴</strong> — 반복 작업을 자동화하는 툴을 만들어 개발 속도를 높임 (메트로놈 참조 자동 연결, 스프레드시트 데이터 불러오기)</li>
+              <li style="padding: 14px 0; border-bottom: 1px solid rgba(70,44,26,.2); font-size: 16px; line-height: 1.55"><strong style="font-weight: 600">협업 환경</strong> — 처음 Unity를 쓰는 팀원을 위한 작업·온보딩 가이드 작성</li>
+              <li style="padding: 14px 0; border-bottom: 1px solid rgba(70,44,26,.2); font-size: 16px; line-height: 1.55"><strong style="font-weight: 600">VR 대응</strong> — PC 버전을 VR로 마이그레이션, 입력 체계 전환</li>
+            </ul>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 14px">
+            <h3 style="margin: 0; font-size: 14px; font-weight: 600; letter-spacing: .06em; color: #6B4A33">사용한 도구</h3>
+            <dl style="margin: 0; display: flex; flex-direction: column; border-top: 1px solid rgba(70,44,26,.2)">
+              <div style="display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid rgba(70,44,26,.2)"><dt style="width: 72px; flex: none; font-size: 13px; color: #6B5340; padding-top: 2px">설계</dt><dd style="margin: 0; font-size: 16px">FSM, EventBus, Unity Editor 확장</dd></div>
+              <div style="display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid rgba(70,44,26,.2)"><dt style="width: 72px; flex: none; font-size: 13px; color: #6B5340; padding-top: 2px">그래픽</dt><dd style="margin: 0; font-size: 16px">Blender, VARCO 3D, Illustrator</dd></div>
+              <div style="display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid rgba(70,44,26,.2)"><dt style="width: 72px; flex: none; font-size: 13px; color: #6B5340; padding-top: 2px">협업</dt><dd style="margin: 0; font-size: 16px">GitHub, GitHub Desktop, Google Docs, Google 스프레드시트</dd></div>
+              <div style="display: flex; gap: 16px; padding: 14px 0; border-bottom: 1px solid rgba(70,44,26,.2)"><dt style="width: 72px; flex: none; font-size: 13px; color: #6B5340; padding-top: 2px">AI 활용</dt><dd style="margin: 0; font-size: 16px; line-height: 1.55">Gemini, ChatGPT, Claude — 코드는 조언만 받고 직접 검수, 연출 애니메이션 일부는 MCP로 위임</dd></div>
+            </dl>
+            <h3 style="margin: 14px 0 0; font-size: 14px; font-weight: 600; letter-spacing: .06em; color: #6B4A33">팀 구성 · 4인</h3>
+            <p style="margin: 0; font-size: 16px; line-height: 1.55">프로그래밍, 기획, 3D 모델링, 애니메이팅, 2D 리소스 제작, 사운드</p>
+            <h3 style="margin: 14px 0 0; font-size: 14px; font-weight: 600; letter-spacing: .06em; color: #6B4A33">핵심 성과</h3>
+            <ol style="margin: 0; padding-left: 20px; display: flex; flex-direction: column; gap: 8px; font-size: 16px; line-height: 1.55">
+              <li>한 달 만에 PC 버전 빌드 완성</li>
+              <li>확장성을 고려한 구조로 막바지 추가 기획(인트로·엔딩, 빌드 3일 전 바닥 연출)을 기존 코드 수정 없이 반영</li>
+              <li>오브젝트 연결과 기획 데이터 불러오기를 에디터 툴로 자동화</li>
+              <li>PC용으로 만든 게임을 VR 버전으로 확장</li>
+            </ol>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="system" aria-labelledby="h-system" class="wrap" style="display: flex; flex-direction: column; gap: 28px; scroll-margin-top: 96px">
+      <div class="mono" data-mono="2"><p>“램프 불빛이 힘없이 깜빡인다. 금방이라도 꺼질 것처럼.”</p></div>
+      <div class="panel" style="display: flex; flex-direction: column; gap: 32px">
+        <h2 id="h-system" style="margin: 0; font-family: 'Nanum Myeongjo', serif; font-size: 34px; font-weight: 700">핵심 시스템 · 안락 수치</h2>
+        <div class="cmp">
+          <div style="display: flex; flex-direction: column; gap: 14px">
+            <div role="group" aria-label="비교할 장면" id="cmpTabs" style="display: flex; gap: 0; border: 1.5px solid #2A1A12; align-self: flex-start"></div>
+            <div style="position: relative; padding: 8px; background-color: #1A0D09; border: 1px solid #3A2117">
+              <div style="position: relative; aspect-ratio: var(--cmpRatio); overflow: hidden; background: #0A0403">
+                <img id="cmpLow" src="assets/piano-red.webp" alt="안락 수치가 낮을 때: 같은 피아노 방이 붉게 물들고 식물이 자라난 모습" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover">
+                <img id="cmpHigh" src="assets/piano-warm.webp" alt="안락 수치가 높을 때: 따뜻한 조명의 피아노 방" loading="lazy" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; clip-path: inset(0 var(--cmpClip) 0 0)">
+                <div aria-hidden="true" style="position: absolute; top: 0; bottom: 0; left: var(--cmpLine); width: 2px; background: #F3E9D6; box-shadow: 0 0 0 1px rgba(0,0,0,.4)"></div>
+              </div>
+            </div>
+            <label style="display: flex; flex-direction: column; gap: 6px; font-size: 14px">
+              <span>안락 수치를 직접 조절해 보세요</span>
+              <input class="range" type="range" min="0" max="100" id="cmpRange" value="100">
+            </label>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 20px">
+            <p style="margin: 0; font-size: 23px; font-weight: 700; line-height: 1.5">수치가 떨어지면 안락한 온실이 기괴한 모습으로 바뀝니다.</p>
+            <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; border-top: 1px solid rgba(70,44,26,.2)">
+              <li style="padding: 12px 0; border-bottom: 1px solid rgba(70,44,26,.2); font-size: 15px">조명이 어두워지고 화면이 붉어짐</li>
+              <li style="padding: 12px 0; border-bottom: 1px solid rgba(70,44,26,.2); font-size: 15px">바닥에서 식물이 자라남</li>
+              <li style="padding: 12px 0; border-bottom: 1px solid rgba(70,44,26,.2); font-size: 15px">액자·고양이 모습과 독백이 달라짐</li>
+            </ul>
+            <p style="margin: 0; font-size: 14px; line-height: 1.6; color: #6B4A33">구현: 게이지는 변화만 발행하고, 각 오브젝트가 구독해 반응합니다. 반응을 추가해도 기존 코드는 그대로입니다.</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="problems" aria-labelledby="h-problems" class="wrap" style="display: flex; flex-direction: column; gap: 28px; scroll-margin-top: 96px">
+      <div class="mono" data-mono="3"><p>“그림 속 얼굴이 액자 밖 나를 정면으로 보고 있는 것 같다.”</p></div>
+      <div class="panel" style="display: flex; flex-direction: column; gap: 32px">
+        <div style="display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 12px">
+          <h2 id="h-problems" style="margin: 0; font-family: 'Nanum Myeongjo', serif; font-size: 34px; font-weight: 700">문제 해결 과정</h2>
+          <p style="margin: 0; font-size: 14px; color: #6B4A33">카드를 누르면 과정이 펼쳐집니다</p>
+        </div>
+        <div class="cards3">
+
+          <details class="paper">
+            <summary style="display: flex; flex-direction: column; gap: 14px; padding: 20px 22px 22px">
+              <span style="display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 600; color: #6B4A33"><span>01 · FSM</span><span class="plus" aria-hidden="true" style="font-size: 22px; line-height: 1">+</span></span>
+              <span style="font-family: 'Nanum Myeongjo', serif; font-size: 21px; font-weight: 700; line-height: 1.4">짧은 개발 기간, 바꾸기 쉬운 플로우 구조</span>
+              <span style="font-size: 15px; line-height: 1.55">막바지 인트로·엔딩 추가를 새 State만 넣어 반영</span>
+            </summary>
+            <dl style="margin: 0; padding: 0 22px 24px; display: flex; flex-direction: column; gap: 14px; font-size: 15px; line-height: 1.6">
+              <div><dt style="font-size: 12px; font-weight: 600; color: #6B4A33">문제</dt><dd style="margin: 2px 0 0">기간을 짧게 잡고 기획과 개발을 함께 진행해서, 아직 완성되지 않은 플로우 기획을 쉽게 바꿀 수 있는 구조가 필요했음. 플로우마다 커서·이동 제한 같은 설정도 달랐음</dd></div>
+              <div><dt style="font-size: 12px; font-weight: 600; color: #6B4A33">시도</dt><dd style="margin: 2px 0 0">처음엔 switch로 관리하려 했으나, 플로우의 진입·탈출을 다루기 위해 Enter·Exit를 가진 IState 인터페이스를 만들고 상태별로 커서·이동 제한을 설정</dd></div>
+              <div><dt style="font-size: 12px; font-weight: 600; color: #6B4A33">결과</dt><dd style="margin: 2px 0 0">플로우가 바뀔 때마다 커서·이동 설정이 자동으로 전환됨. 상태를 개별 클래스로 분리해, 인트로·엔딩 같은 새 플로우도 다른 클래스를 신경 쓰지 않고 추가</dd></div>
+              <div><dt style="font-size: 12px; font-weight: 600; color: #6B4A33">배운 점</dt><dd style="margin: 2px 0 0">플로우 밖에서도 커서·이동 설정을 건드려 충돌이 생김 → 이전 설정을 캐싱해 복원하도록 보완. 공용 설정을 바꾸는 상태는 외부 간섭까지 고려해야 한다는 것을 배움</dd></div>
+            </dl>
+          </details>
+
+          <details class="paper">
+            <summary style="display: flex; flex-direction: column; gap: 14px; padding: 20px 22px 22px">
+              <span style="display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 600; color: #6B4A33"><span>02 · EventBus</span><span class="plus" aria-hidden="true" style="font-size: 22px; line-height: 1">+</span></span>
+              <span style="font-family: 'Nanum Myeongjo', serif; font-size: 21px; font-weight: 700; line-height: 1.4">수치 하나에 여러 객체가 반응</span>
+              <span style="font-size: 15px; line-height: 1.55">빌드 3일 전 추가된 “바닥에서 풀이 자라남” 기획을 당일 반영</span>
+            </summary>
+            <dl style="margin: 0; padding: 0 22px 24px; display: flex; flex-direction: column; gap: 14px; font-size: 15px; line-height: 1.6">
+              <div><dt style="font-size: 12px; font-weight: 600; color: #6B4A33">문제</dt><dd style="margin: 2px 0 0">안락 수치 변화에 고양이·액자·바닥·라이트맵이 각자 다르게 반응해야 함</dd></div>
+              <div><dt style="font-size: 12px; font-weight: 600; color: #6B4A33">시도</dt><dd style="margin: 2px 0 0">안락 수치가 구독자를 모르도록 EventBus로 분리</dd></div>
+              <div><dt style="font-size: 12px; font-weight: 600; color: #6B4A33">결과</dt><dd style="margin: 2px 0 0">안락 수치에 반응하는 새로운 기획이 생겨도 구독자 하나만 추가, 기존 코드는 그대로</dd></div>
+              <div><dt style="font-size: 12px; font-weight: 600; color: #6B4A33">배운 점</dt><dd style="margin: 2px 0 0">하나의 핵심 수치에 여러 객체가 각자 다르게 반응해야 할 때 EventBus가 잘 맞았음. 모두 같은 반응이라 이점이 적었던 03번 메트로놈과 대비됨</dd></div>
+            </dl>
+          </details>
+
+          <details class="paper">
+            <summary style="display: flex; flex-direction: column; gap: 14px; padding: 20px 22px 22px">
+              <span style="display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 600; color: #6B4A33"><span>03 · 에디터 툴</span><span class="plus" aria-hidden="true" style="font-size: 22px; line-height: 1">+</span></span>
+              <span style="font-family: 'Nanum Myeongjo', serif; font-size: 21px; font-weight: 700; line-height: 1.4">메트로놈 100개 동시 작동</span>
+              <span style="font-size: 15px; line-height: 1.55">두 방식 모두 애매해 고민, 참조 자동 연결 툴로 해결</span>
+            </summary>
+            <dl style="margin: 0; padding: 0 22px 24px; display: flex; flex-direction: column; gap: 14px; font-size: 15px; line-height: 1.6">
+              <div><dt style="font-size: 12px; font-weight: 600; color: #6B4A33">문제</dt><dd style="margin: 2px 0 0">보스 방 문이 열릴 때 메트로놈 100여 개가 동시에 작동해야 함</dd></div>
+              <div><dt style="font-size: 12px; font-weight: 600; color: #6B4A33">시도 1</dt><dd style="margin: 2px 0 0">EventBus — 모두 같은 반응이라 이점이 적고 흐름 추적만 어려워질 것 같았음</dd></div>
+              <div><dt style="font-size: 12px; font-weight: 600; color: #6B4A33">시도 2</dt><dd style="margin: 2px 0 0">직접 참조 — 배치가 자주 바뀌어 매번 수동으로 연결해야 했고, 연결이 누락되는 버그도 생김</dd></div>
+              <div><dt style="font-size: 12px; font-weight: 600; color: #6B4A33">결과</dt><dd style="margin: 2px 0 0">씬을 자동 탐색해 참조를 연결하는 Editor 확장 툴. 수동 약 5분 → 버튼 한 번, 연결 누락도 사라짐</dd></div>
+              <div><dt style="font-size: 12px; font-weight: 600; color: #6B4A33">배운 점</dt><dd style="margin: 2px 0 0">문이 열릴 때 한 번에 같이 작동하는 구조라 EventBus는 맞지 않았던 판단은 옳았음. 다만 확장 계획도 없는 작은 문제에 맞는 구조를 찾느라 고민한 시간이 길었음. 적재적소를 따지되, 문제의 비중에 맞게 빠르게 결정해야 한다는 것을 배움</dd></div>
+            </dl>
+          </details>
+
+          <details class="paper">
+            <summary style="display: flex; flex-direction: column; gap: 14px; padding: 20px 22px 22px">
+              <span style="display: flex; justify-content: space-between; align-items: center; font-size: 13px; font-weight: 600; color: #6B4A33"><span>04 · 데이터 툴</span><span class="plus" aria-hidden="true" style="font-size: 22px; line-height: 1">+</span></span>
+              <span style="font-family: 'Nanum Myeongjo', serif; font-size: 21px; font-weight: 700; line-height: 1.4">대용량 텍스트 데이터, 수정·관리를 쉽게</span>
+              <span style="font-size: 15px; line-height: 1.55">스프레드시트를 메뉴 한 번으로 ScriptableObject로 변환</span>
+            </summary>
+            <dl style="margin: 0; padding: 0 22px 24px; display: flex; flex-direction: column; gap: 14px; font-size: 15px; line-height: 1.6">
+              <div><dt style="font-size: 12px; font-weight: 600; color: #6B4A33">문제</dt><dd style="margin: 2px 0 0">대용량 텍스트 데이터를 팀원끼리 쉽게 공유하고, 게임에서도 쉽게 쓰고 싶었음</dd></div>
+              <div><dt style="font-size: 12px; font-weight: 600; color: #6B4A33">해결</dt><dd style="margin: 2px 0 0">Google 스프레드시트를 에디터 메뉴 한 번으로 ScriptableObject로 변환하는 툴 제작</dd></div>
+              <div><dt style="font-size: 12px; font-weight: 600; color: #6B4A33">결과</dt><dd style="margin: 2px 0 0">기획자도 코드 수정 없이 대사와 데이터를 바꿀 수 있게 됨</dd></div>
+            </dl>
+          </details>
+
+        </div>
+      </div>
+    </section>
+
+    <section id="collab" aria-labelledby="h-collab" class="wrap" style="display: flex; flex-direction: column; gap: 28px; scroll-margin-top: 96px">
+      <div class="mono" data-mono="4"><p>“잎끝이 하나둘 갈색으로 마르고 있다.<br>나만 몰랐던 걸까, 아니면 나도 모르게 외면했던 걸까.”</p></div>
+      <div class="panel" style="display: flex; flex-direction: column; gap: 28px">
+        <h2 id="h-collab" style="margin: 0; font-family: 'Nanum Myeongjo', serif; font-size: 34px; font-weight: 700">협업 가이드</h2>
+        <p style="margin: 0; font-size: 17px; line-height: 1.65">팀원이 같은 기준으로 작업하고, 늦게 합류해도 바로 참여할 수 있도록 두 문서를 직접 작성했습니다.</p>
+        <div class="kv" style="gap: 20px; align-items: start">
+          <article class="paper" style="display: flex; flex-direction: column; gap: 18px; padding: 26px 26px 28px">
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 12px; font-weight: 600; letter-spacing: .06em; color: #6B4A33">대상 · 팀 전체</span>
+              <h3 style="margin: 0; font-family: 'Nanum Myeongjo', serif; font-size: 23px; font-weight: 800">가구 배치 작업 가이드</h3>
+            </div>
+            <p style="margin: 0; font-size: 16px; line-height: 1.6">가구 배치에 팀 전체가 참여해, 모두가 따를 하나의 기준이 필요했습니다. Unity와 Git이 처음인 팀원도 따라 할 수 있게 스크린샷과 함께 단계별로 정리했습니다.</p>
+            <a href="assets/anrak-furniture-guide.pdf" target="_blank" rel="noopener" aria-label="가구 배치 작업 가이드 첫 페이지: 문서를 만든 이유와 꼭 지켜야 할 규칙 표 — PDF 열기" style="display: block; position: relative; overflow: hidden; aspect-ratio: 830 / 700; background: #FFFFFF; border: 1px solid #C9B999; box-shadow: 0 2px 0 rgba(80,50,28,.15)">
+              <img src="assets/guide-furniture.webp" alt="가구 배치 작업 가이드 첫 페이지: 문서를 만든 이유와 꼭 지켜야 할 규칙 표" loading="lazy" width="830" height="700" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: top">
+              <span aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 22%; background: linear-gradient(to top, rgba(240,230,207,1), rgba(240,230,207,0))"></span>
+            </a>
+            <dl style="margin: 0; display: flex; flex-direction: column; border-bottom: 1px solid #C9B999">
+              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 78px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px">브랜치</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">개인 브랜치에서 작업, 시작 전 main merge</dd></div>
+              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 78px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px">씬 분리</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">각자 개인 씬에서 작업해 같은 씬 충돌 차단</dd></div>
+              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 78px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px">공용 자산</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">프리팹·에셋 원본은 수정 금지, 씬에서만 수정</dd></div>
+              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 78px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px">계층 규칙</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">방 › 가구(빈 부모) › 모델. 부모는 위치·회전, 모델은 크기만</dd></div>
+              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 78px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px">에셋 관리</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">지정 폴더, 고폴리 에셋은 배치 전 공유</dd></div>
+            </dl>
+            <a href="assets/anrak-furniture-guide.pdf" target="_blank" rel="noopener" download="안락온실_가구배치작업가이드.pdf" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; background: #24140E; color: #F1E7D0; text-decoration: none; font-size: 15px; font-weight: 500">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"></path></svg>
+              가구 배치 작업 가이드 PDF
+            </a>
+          </article>
+          <article class="paper" style="display: flex; flex-direction: column; gap: 18px; padding: 26px 26px 28px">
+            <div style="display: flex; flex-direction: column; gap: 6px">
+              <span style="font-size: 12px; font-weight: 600; letter-spacing: .06em; color: #6B4A33">대상 · 개발 팀원</span>
+              <h3 style="margin: 0; font-family: 'Nanum Myeongjo', serif; font-size: 23px; font-weight: 800">개발 온보딩 가이드</h3>
+            </div>
+            <p style="margin: 0; font-size: 16px; line-height: 1.6">먼저 투입돼 구조를 잡은 뒤, 나중에 합류한 개발 팀원이 같은 질문을 반복하지 않고 바로 작업에 들어갈 수 있도록 정리했습니다.</p>
+            <a href="assets/anrak-dev-onboarding-guide.pdf" target="_blank" rel="noopener" aria-label="개발 온보딩 가이드 첫 페이지: 문서를 만든 이유와 핵심 시스템 표 — PDF 열기" style="display: block; position: relative; overflow: hidden; aspect-ratio: 830 / 700; background: #FFFFFF; border: 1px solid #C9B999; box-shadow: 0 2px 0 rgba(80,50,28,.15)">
+              <img src="assets/guide-onboarding.webp" alt="개발 온보딩 가이드 첫 페이지: 문서를 만든 이유와 핵심 시스템 표" loading="lazy" width="830" height="700" style="display: block; width: 100%; height: 100%; object-fit: cover; object-position: top">
+              <span aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 22%; background: linear-gradient(to top, rgba(240,230,207,1), rgba(240,230,207,0))"></span>
+            </a>
+            <dl style="margin: 0; display: flex; flex-direction: column; border-bottom: 1px solid #C9B999">
+              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 78px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px">핵심 시스템</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">GameManager, GameFlowManager 등 주요 클래스의 역할과 사용법</dd></div>
+              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 78px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px">데이터 테이블</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">스프레드시트를 메뉴 한 번으로 불러오는 순서</dd></div>
+              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 78px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px">코딩 컨벤션</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">식별자 표기법과 UI_·Puzzle_·GameFlow 같은 이름 접두사</dd></div>
+            </dl>
+            <a href="assets/anrak-dev-onboarding-guide.pdf" target="_blank" rel="noopener" download="안락온실_개발온보딩가이드.pdf" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; background: #24140E; color: #F1E7D0; text-decoration: none; font-size: 15px; font-weight: 500">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"></path></svg>
+              개발 온보딩 가이드 PDF
+            </a>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="learned" aria-labelledby="h-learned" class="wrap" style="display: flex; flex-direction: column; gap: 28px; scroll-margin-top: 96px">
+      <div class="mono" data-mono="5"><p>“악보를 보면대 위에 조심스레 펼쳐놓는다.<br>오랜만에 건반 앞에 제대로 앉아본다.”</p></div>
+      <div class="panel" style="display: flex; flex-direction: column; gap: 32px">
+        <h2 id="h-learned" style="margin: 0; font-family: 'Nanum Myeongjo', serif; font-size: 34px; font-weight: 700">돌아보며</h2>
+        <div class="kv">
+          <div style="display: flex; flex-direction: column; gap: 14px">
+            <h3 style="margin: 0; font-size: 14px; font-weight: 600; letter-spacing: .06em; color: #6B4A33">의도적으로 단순하게 만든 부분</h3>
+            <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; border-top: 1px solid rgba(70,44,26,.2)">
+              <li style="padding: 14px 0; border-bottom: 1px solid rgba(70,44,26,.2); font-size: 16px; line-height: 1.55">DI 대신 싱글톤 위주로 빠르게 구현해 출시까지 마침</li>
+              <li style="padding: 14px 0; border-bottom: 1px solid rgba(70,44,26,.2); font-size: 16px; line-height: 1.55">입력은 익숙한 Old Input System으로 시작</li>
+              <li style="padding: 14px 0; border-bottom: 1px solid rgba(70,44,26,.2); font-size: 16px; line-height: 1.55">기획 변경이 몰릴 곳에만 FSM·EventBus 적용</li>
+            </ul>
+          </div>
+          <div style="display: flex; flex-direction: column; gap: 14px">
+            <h3 style="margin: 0; font-size: 14px; font-weight: 600; letter-spacing: .06em; color: #6B4A33">아쉬운 점과 다음에 할 것</h3>
+            <ul style="margin: 0; padding: 0; list-style: none; display: flex; flex-direction: column; border-top: 1px solid rgba(70,44,26,.2)">
+              <li style="padding: 14px 0; border-bottom: 1px solid rgba(70,44,26,.2); font-size: 16px; line-height: 1.55"><strong style="font-weight: 600">입력 체계</strong> — New Input System은 초기 구현 비용이 크지 않았는데, VR 마이그레이션 때 입력부를 다시 바꿔야 했음. 다음엔 처음부터 적용</li>
+              <li style="padding: 14px 0; border-bottom: 1px solid rgba(70,44,26,.2); font-size: 16px; line-height: 1.55"><strong style="font-weight: 600">VR UX</strong> — VR이 처음이었고 PC 기준으로 기획한 뒤 VR을 붙여 조작감이 아쉬웠음. VR을 기준으로 처음부터 설계하는 프로젝트에 도전하고 싶음</li>
+              <li style="padding: 14px 0; border-bottom: 1px solid rgba(70,44,26,.2); font-size: 16px; line-height: 1.55"><strong style="font-weight: 600">다음 단계</strong> — 지스타 전시 예정. 현장 플레이 피드백을 받아 개선할 계획</li>
+            </ul>
+          </div>
+        </div>
+        <p style="margin: 0; padding-top: 24px; border-top: 1px solid rgba(70,44,26,.3); font-family: 'Nanum Myeongjo', serif; font-size: 20px; font-weight: 700; line-height: 1.65">총괄로서 코드만큼 중요했던 건, 팀원이 작업하기 쉬운 환경을 먼저 만드는 일이었습니다.</p>
+      </div>
+    </section>
+
+    <section id="contact" aria-labelledby="h-contact" class="wrap" style="display: flex; flex-direction: column; justify-content: center; gap: 28px; min-height: 86vh; padding-bottom: 96px; scroll-margin-top: 96px">
+      <div class="mono" data-mono="6"><p>“악보가 보면대 위에 그대로 놓여 있다.<br>마지막 한 음은… 여전히 치지 못한 채로 남아 있다.”</p></div>
+      <div class="panel" style="display: flex; flex-direction: column; gap: 28px">
+        <div style="display: flex; flex-direction: column; gap: 8px">
+          <h2 id="h-contact" style="margin: 0; font-family: 'Nanum Myeongjo', serif; font-size: 38px; font-weight: 700">강소현</h2>
+          <p style="margin: 0; font-size: 17px; color: #6B4A33">Unity 클라이언트 개발자</p>
+        </div>
+        <div style="display: flex; flex-wrap: wrap; gap: 10px">
+          <button type="button" class="btn primary" id="copyBtn" aria-label="이메일 주소 kkng93279@naver.com 복사" style="font-family: inherit; cursor: pointer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="1"></rect><path d="M5 15V5a1 1 0 0 1 1-1h10"></path></svg>
+            <span id="emailLabel">kkng93279@naver.com</span>
+          </button>
+          <span role="status" aria-live="polite" style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0)" id="copyStatus"></span>
+          <a class="btn" href="https://app.notion.com/p/Unity-39c05c37fead80279992e32bc8d32e9d" target="_blank" rel="noopener">Notion 포트폴리오</a>
+          <a class="btn" href="#top">안락한 온실로 돌아가기</a>
+        </div>
+      </div>
+    </section>
+
+  </main>
+</div>
+<script>
+function hexToRgb(h){h=h.replace('#','');return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
+function mixHex(a,b,t){var x=hexToRgb(a),y=hexToRgb(b);return '#'+[0,1,2].map(function(i){var v=Math.round(x[i]+(y[i]-x[i])*t);return (v<16?'0':'')+v.toString(16);}).join('');}
+function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function f1(n){return n.toFixed(1);}
+function rng(seed){var s=seed%2147483647;if(s<=0)s+=2147483646;return function(){s=(s*16807)%2147483647;return (s-1)/2147483646;};}
+function leafPath(x,y,a,L,W){
+  var tx=x+L*Math.cos(a), ty=y+L*Math.sin(a);
+  var mx=x+L*0.42*Math.cos(a), my=y+L*0.42*Math.sin(a);
+  var px=-Math.sin(a)*W, py=Math.cos(a)*W;
+  return 'M'+f1(x)+' '+f1(y)+'Q'+f1(mx+px)+' '+f1(my+py)+' '+f1(tx)+' '+f1(ty)+'Q'+f1(mx-px)+' '+f1(my-py)+' '+f1(x)+' '+f1(y)+'Z';
+}
+function segDist(a,b,c,d){
+  function dps(p,s,e){var dx=e[0]-s[0],dy=e[1]-s[1],l=dx*dx+dy*dy,t=l?clamp(((p[0]-s[0])*dx+(p[1]-s[1])*dy)/l,0,1):0;var qx=s[0]+t*dx-p[0],qy=s[1]+t*dy-p[1];return Math.sqrt(qx*qx+qy*qy);}
+  function ccw(p,q,r){return (r[1]-p[1])*(q[0]-p[0])-(q[1]-p[1])*(r[0]-p[0]);}
+  if((ccw(a,b,c)>0)!==(ccw(a,b,d)>0)&&(ccw(c,d,a)>0)!==(ccw(c,d,b)>0)) return 0;
+  return Math.min(dps(a,c,d),dps(b,c,d),dps(c,a,b),dps(d,a,b));
+}
+function Plant(){ this.leaves=''; this.segs=[]; }
+Plant.prototype.blocked=function(s,e,rad,skipStemNear){
+  for(var i=0;i<this.segs.length;i++){
+    var g=this.segs[i];
+    if(skipStemNear && g.stem && g.near===skipStemNear) continue;
+    if(segDist(s,e,g.s,g.e) < rad+g.r) return true;
+  }
+  return false;
+};
+Plant.prototype.stemSeg=function(s,e,r,id){ this.segs.push({s:s,e:e,r:r,stem:true,near:id}); };
+Plant.prototype.leaf=function(x,y,a,L,W,stemId){
+  var c=Math.cos(a), sn=Math.sin(a), px=-sn, py=c;
+  var s=[x+c*L*0.18,y+sn*L*0.18], e=[x+c*L*0.96,y+sn*L*0.96];
+  if(this.blocked(s,e,W*0.75,stemId)) return false;
+  this.segs.push({s:s,e:e,r:W*0.75});
+  function P(u,v){return f1(x+c*u+px*v)+' '+f1(y+sn*u+py*v);}
+  this.leaves+='M'+P(0,0)+'C'+P(L*0.12,W*0.9)+' '+P(L*0.6,W*0.95)+' '+P(L,0)+'C'+P(L*0.6,-W*0.95)+' '+P(L*0.12,-W*0.9)+' '+P(0,0)+'Z';
+  return true;
+};
+function makeBush(seed){
+  var r=rng(seed), pl=new Plant();
+  var bend=(r()-0.5)*120, x0=100, topY=30+r()*70;
+  var P=[[x0,402],[x0+bend*0.1,300],[x0+bend*0.6,190],[x0+bend,topY]];
+  function pt(t){var u=1-t;return [u*u*u*P[0][0]+3*u*u*t*P[1][0]+3*u*t*t*P[2][0]+t*t*t*P[3][0], u*u*u*P[0][1]+3*u*u*t*P[1][1]+3*u*t*t*P[2][1]+t*t*t*P[3][1]];}
+  function tan(t){var u=1-t;var dx=3*u*u*(P[1][0]-P[0][0])+6*u*t*(P[2][0]-P[1][0])+3*t*t*(P[3][0]-P[2][0]);var dy=3*u*u*(P[1][1]-P[0][1])+6*u*t*(P[2][1]-P[1][1])+3*t*t*(P[3][1]-P[2][1]);return Math.atan2(dy,dx);}
+  var stem='M'+P[0].join(' ')+'C'+P[1].join(' ')+' '+P[2].join(' ')+' '+P[3].join(' ');
+  for(var k=0;k<20;k++){ pl.stemSeg(pt(k/20),pt((k+1)/20),6,'s'); }
+  var side=r()<0.5?1:-1;
+  for(var t=0.14;t<0.97;t+=0.07+r()*0.03){
+    var p=pt(t), a=tan(t), L=(1-t)*55+44+r()*20;
+    if(!pl.leaf(p[0],p[1],a+side*(0.8+r()*0.5),L,L*(0.22+r()*0.06),'s'))
+      pl.leaf(p[0],p[1],a+side*(1.35+r()*0.3),L*0.8,L*0.2,'s');
+    side=-side;
+  }
+  var e=pt(1), ea=tan(1);
+  pl.leaf(e[0],e[1],ea+(r()-0.5)*0.3,54+r()*16,13+r()*3,'s');
+  pl.leaf(e[0],e[1],ea-1.0,40+r()*12,10,'s');
+  pl.leaf(e[0],e[1],ea+1.0,40+r()*12,10,'s');
+  for(var j=0;j<6;j++){
+    var bx=100+(r()-0.5)*110, ba=-Math.PI/2+(r()-0.5)*2.6;
+    pl.leaf(bx,404,ba,48+r()*30,12+r()*5,null);
+  }
+  return {stem:stem,leaves:pl.leaves};
+}
+function makeVine(seed){
+  var r=rng(seed), ph=r()*6, stem='', pl=new Plant(), side=1, prev=null;
+  for(var y=1000;y>=0;y-=20){
+    var x=36+Math.sin(y/85+ph)*14+Math.sin(y/23+ph*2)*3;
+    stem+=(y===1000?'M':'L')+f1(x)+' '+y;
+    if(prev) pl.stemSeg(prev,[x,y],4,'v');
+    prev=[x,y];
+  }
+  for(var y2=980;y2>=20;y2-=30){
+    var x2=36+Math.sin(y2/85+ph)*14+Math.sin(y2/23+ph*2)*3;
+    var a=-Math.PI/2+side*(0.8+r()*0.5), L=30+r()*22;
+    if(pl.leaf(x2,y2,a,L,L*(0.24+r()*0.06),'v')) side=-side;
+  }
+  return {stem:stem,leaves:pl.leaves};
+}
+var CMP=[
+  {label:'피아노 방', ratio:'16 / 9', high:'assets/piano-warm.webp', low:'assets/piano-red.webp',
+   highAlt:'안락 수치가 높을 때: 따뜻한 조명의 피아노 방', lowAlt:'안락 수치가 낮을 때: 같은 피아노 방이 붉게 물들고 식물이 자라난 모습'},
+  {label:'액자', ratio:'16 / 9', high:'assets/frame-warm.webp', low:'assets/frame-red.webp',
+   highAlt:'안락 수치가 높을 때: 평범한 숲 풍경화와 독백 “평범한 숲 풍경화. 나무들 사이로 열은 안개가 깔려 있다.”', lowAlt:'안락 수치가 낮을 때: 같은 액자가 어두워지고 숲속에 사람 형체가 보이며 독백이 “나무들 사이, 원래 없던 사람의 형체가 서 있는 것처럼 보인다.”로 바뀜'},
+  {label:'고양이', ratio:'16 / 9', high:'assets/cat-warm.webp', low:'assets/cat-red.webp',
+   highAlt:'안락 수치가 높을 때: 부엌 바닥에 앉아 올려다보는 동그란 눈의 작은 검은 고양이', lowAlt:'안락 수치가 낮을 때: 붉은 복도에서 같은 고양이가 크고 일그러진 검은 형체로 다가오는 모습'}
+];
+var SECTIONS=['top','summary','system','problems','collab','learned','contact'];
+var LABELS=['요약','안락 수치','문제 해결','협업','회고','연락'];
+var FROND_LAYOUT=[
+  {x:-5,h:70,d:0,s:1},{x:8,h:54,d:.25,s:-1},{x:20,h:62,d:.45,s:1},{x:32,h:46,d:.65,s:-1},
+  {x:56,h:48,d:.6,s:1},{x:68,h:60,d:.4,s:-1},{x:80,h:52,d:.2,s:1},{x:91,h:72,d:0,s:-1}
+];
+var FRONDS=FROND_LAYOUT.map(function(l,i){var g=makeBush(101+i*977);return {l:l,stem:g.stem,leaves:g.leaves,dur:(6+((i*37)%5)).toFixed(1),delay:(-(i*1.3)).toFixed(1)};});
+var VINES=[makeVine(4242),makeVine(9191)];
+(function(){
+  var root=document.documentElement;
+  var NS='http://www.w3.org/2000/svg';
+  var state={g:100,end:0,idx:0,seen:0,cmpSet:0};
+
+  function svgPath(d,attrs){
+    var p=document.createElementNS(NS,'path'); p.setAttribute('d',d);
+    for(var k in attrs) p.setAttribute(k,attrs[k]);
+    return p;
+  }
+  function plantSvg(viewBox,par,stem,leaves,sw){
+    var svg=document.createElementNS(NS,'svg');
+    svg.setAttribute('viewBox',viewBox); svg.setAttribute('preserveAspectRatio',par); svg.setAttribute('overflow','visible');
+    var parts={
+      stemOut:svgPath(stem,{fill:'none','stroke-width':sw[0],'stroke-linecap':'round','stroke-linejoin':'round'}),
+      leafOut:svgPath(leaves,{'stroke-width':sw[1],'stroke-linejoin':'round'}),
+      stemIn:svgPath(stem,{fill:'none','stroke-width':sw[2],'stroke-linecap':'round','stroke-linejoin':'round'}),
+      leafIn:svgPath(leaves,{})
+    };
+    svg.appendChild(parts.stemOut); svg.appendChild(parts.leafOut); svg.appendChild(parts.stemIn); svg.appendChild(parts.leafIn);
+    return {svg:svg,parts:parts};
+  }
+  function paint(o,fill,stroke){
+    o.parts.stemOut.setAttribute('stroke',stroke);
+    o.parts.leafOut.setAttribute('fill',stroke); o.parts.leafOut.setAttribute('stroke',stroke);
+    o.parts.stemIn.setAttribute('stroke',fill);
+    o.parts.leafIn.setAttribute('fill',fill);
+  }
+
+  // flora
+  var flora=document.getElementById('flora');
+  var vineEls=VINES.map(function(v,i){
+    var wrap=document.createElement('div'); wrap.className='vine';
+    wrap.style.cssText=i===0?'left:0;':'right:0;transform:scaleX(-1);';
+    var o=plantSvg('0 0 100 1000','none',v.stem,v.leaves,[9,3,6]);
+    wrap.appendChild(o.svg); flora.appendChild(wrap); return o;
+  });
+  var frondEls=FRONDS.map(function(fr){
+    var l=fr.l, wrap=document.createElement('div'); wrap.className='sway';
+    wrap.style.cssText='left:'+l.x+'%;width:max(170px,17vw);height:'+l.h+'%;animation-duration:'+fr.dur+'s;animation-delay:'+fr.delay+'s;';
+    var o=plantSvg('-80 -40 360 448','xMidYMax meet',fr.stem,fr.leaves,[11.6,3.6,8]);
+    o.svg.style.transform='scaleX('+l.s+')';
+    wrap.appendChild(o.svg); flora.appendChild(wrap); o.l=l; return o;
+  });
+
+  // piano keys
+  var piano=document.getElementById('piano');
+  var keyEls=SECTIONS.slice(1).map(function(id,i){
+    var a=document.createElement('a'); a.href='#'+id; a.className='wk'; a.textContent=LABELS[i];
+    piano.appendChild(a); return a;
+  });
+  [1,2,4,5].forEach(function(b){
+    var s=document.createElement('span'); s.className='bk'; s.setAttribute('aria-hidden','true');
+    s.style.left='calc('+(b*100/6).toFixed(3)+'% - 3.7%)'; piano.appendChild(s);
+  });
+
+  // comparison
+  var tabsBox=document.getElementById('cmpTabs'), lowImg=document.getElementById('cmpLow'), highImg=document.getElementById('cmpHigh'), range=document.getElementById('cmpRange');
+  var tabEls=CMP.map(function(c,i){
+    var b=document.createElement('button'); b.type='button'; b.textContent=c.label;
+    b.addEventListener('click',function(){ state.cmpSet=i; renderCmp(); });
+    tabsBox.appendChild(b); return b;
+  });
+  function renderCmp(){
+    var c=CMP[state.cmpSet];
+    root.style.setProperty('--cmpRatio',c.ratio);
+    lowImg.src=c.low; lowImg.alt=c.lowAlt; highImg.src=c.high; highImg.alt=c.highAlt;
+    tabEls.forEach(function(b,i){ var on=i===state.cmpSet; b.setAttribute('aria-pressed',on?'true':'false');
+      b.style.cssText='min-height:44px;padding:0 18px;border:0;font:inherit;font-size:14px;font-weight:600;cursor:pointer;background:'+(on?'#2A1A12':'transparent')+';color:'+(on?'#F1E7D0':'#2A1A12')+';'; });
+  }
+  function renderSlide(){ var v=Number(range.value); root.style.setProperty('--cmpClip',(100-v)+'%'); root.style.setProperty('--cmpLine',v+'%'); }
+  range.addEventListener('input',renderSlide);
+
+  // email copy
+  var copyBtn=document.getElementById('copyBtn'), emailLabel=document.getElementById('emailLabel'), copyStatus=document.getElementById('copyStatus'), ct;
+  copyBtn.addEventListener('click',function(){
+    var addr='kkng93279@naver.com';
+    function done(){ emailLabel.textContent='복사했어요'; copyStatus.textContent='이메일 주소를 복사했습니다'; clearTimeout(ct);
+      ct=setTimeout(function(){ emailLabel.textContent=addr; copyStatus.textContent=''; },1800); }
+    function fallback(){ try{ var t=document.createElement('textarea'); t.value=addr; t.setAttribute('readonly',''); t.style.position='fixed'; t.style.opacity='0';
+      document.body.appendChild(t); t.select(); document.execCommand('copy'); document.body.removeChild(t); done(); }catch(e){ window.location.href='mailto:'+addr; } }
+    try{ if(navigator.clipboard&&navigator.clipboard.writeText) navigator.clipboard.writeText(addr).then(done,fallback); else fallback(); }catch(e){ fallback(); }
+  });
+
+  var monos=[].slice.call(document.querySelectorAll('[data-mono]'));
+  var flicker=document.getElementById('flicker'), gval=document.getElementById('gval'), gaugeBox=document.getElementById('gaugeBox');
+
+  function render(){
+    var g=state.g, end=state.end;
+    var red=Math.pow(1-g/100,1.1);
+    var dim=red*(1-end*0.6);
+    root.style.setProperty('--bg',mixHex(mixHex('#4A2D1C','#1A0504',red),'#1C1817',end*0.85));
+    root.style.setProperty('--bgFilter','brightness('+(0.62-0.32*dim).toFixed(2)+') saturate('+(1.12-0.67*dim).toFixed(2)+')');
+    root.style.setProperty('--green',(Math.pow(g/100,1.4)*0.75).toFixed(2));
+    root.style.setProperty('--tint',(red*0.95*(1-end*0.85)).toFixed(2));
+    root.style.setProperty('--shade',(0.12+0.38*red*(1-end*0.5)).toFixed(2));
+    root.style.setProperty('--warm',(g/100).toFixed(2));
+    root.style.setProperty('--red',(red*(1-end*0.9)).toFixed(2));
+    root.style.setProperty('--grain',(0.18+red*0.32).toFixed(2));
+    root.style.setProperty('--clipTop',(100-g)+'%');
+    var low=g<=20;
+    root.style.setProperty('--brainFilter',low?'saturate(5) brightness(.78) hue-rotate(-8deg)':'none');
+    root.style.setProperty('--gaugeText',low?'#FF7A6E':'#F3E9D6');
+    gval.textContent=g; gaugeBox.setAttribute('aria-label','안락 수치 '+g+'%');
+    flicker.className=(g<40&&end<0.5)?'flicker on':'flicker';
+
+    var grow=clamp((90-g)/66,0,1);
+    var leaf=mixHex('#2A3118','#A8120E',clamp((62-g)/45,0,1));
+    var stroke=mixHex(leaf,'#050101',0.6);
+    frondEls.forEach(function(o){
+      var l=o.l, local=clamp((grow-l.d*0.4)/(1-l.d*0.4),0,1);
+      paint(o,leaf,stroke);
+      o.svg.style.clipPath=local>=0.999?'none':'inset('+((1-local)*100).toFixed(1)+'% 0 0 0)';
+    });
+    var vineGrow=clamp((70-g)/62,0,1), vstroke=mixHex(leaf,'#050101',0.55);
+    vineEls.forEach(function(o){ paint(o,leaf,vstroke); o.svg.style.clipPath=vineGrow>=0.999?'none':'inset('+((1-vineGrow)*100).toFixed(1)+'% 0 0 0)'; });
+
+    keyEls.forEach(function(a,i){ a.className='wk'+(state.idx===i+1?' on':''); if(state.idx===i+1) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current'); });
+    monos.forEach(function(m){ var n=Number(m.getAttribute('data-mono')); m.className=state.seen>=n?'mono on':'mono'; });
+  }
+
+  var raf=0, last='';
+  function measure(){
+    var se=document.scrollingElement||document.documentElement;
+    var top=window.scrollY||se.scrollTop||0;
+    var max=Math.max(1,se.scrollHeight-window.innerHeight);
+    var p=clamp(top/max,0,1);
+    var g=Math.round(100-100*clamp(p/0.86,0,1));
+    var end=Math.round(clamp((p-0.9)/0.1,0,1)*20)/20;
+    var idx=0, vh=window.innerHeight;
+    for(var i=0;i<SECTIONS.length;i++){ var el=document.getElementById(SECTIONS[i]); if(el&&el.getBoundingClientRect().top<vh*0.6) idx=i; }
+    if(p>0.985) idx=SECTIONS.length-1;
+    var key=g+'|'+end+'|'+idx;
+    if(key!==last){ last=key; state.g=g; state.end=end; state.idx=idx; state.seen=Math.max(state.seen,idx); render(); }
+  }
+  function onScroll(){ if(raf) return; raf=requestAnimationFrame(function(){ raf=0; measure(); }); }
+  window.addEventListener('scroll',onScroll,{passive:true});
+  window.addEventListener('resize',onScroll);
+
+  renderCmp(); renderSlide(); render(); measure();
+})();
+
+</script>
+</body>
+</html>
