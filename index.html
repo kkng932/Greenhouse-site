@@ -19,9 +19,9 @@ a{color:#F3E9D6}a:hover{color:#FFFFFF}
 dd{min-width:0;overflow-wrap:anywhere}
 .wrap{width:100%;max-width:1160px;margin:0 auto;padding:0 24px;box-sizing:border-box}
 .panel{position:relative;color:#2A1A12;background-color:#E0D0AE;background-image:radial-gradient(circle at 12% 18%,rgba(122,78,36,.16),rgba(122,78,36,0) 38%),radial-gradient(circle at 88% 82%,rgba(122,78,36,.18),rgba(122,78,36,0) 42%),radial-gradient(circle at 70% 10%,rgba(150,110,60,.10),rgba(150,110,60,0) 30%),repeating-linear-gradient(to bottom,rgba(92,62,38,.28) 0,rgba(92,62,38,.28) 1px,transparent 1px,transparent 7px);background-size:auto,auto,auto,100% 29px;background-repeat:no-repeat;background-position:0 0,0 0,0 0,0 14px;box-shadow:inset 0 0 70px rgba(110,66,26,.38),inset 0 0 0 1px rgba(90,58,30,.35),0 26px 60px rgba(0,0,0,.55);padding:56px 44px 44px;box-sizing:border-box}
-.panel::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:url(assets/grain.png);background-size:120px 120px;opacity:.22;mix-blend-mode:multiply}
-.roombg{position:fixed;inset:0;z-index:0;pointer-events:none;background:#140806 url(assets/room-bg.webp) center/cover no-repeat}
-@media (max-width:700px){.roombg{background-image:url(assets/room-bg-sm.webp)}}
+.panel::after{content:'';position:absolute;inset:0;pointer-events:none;background-image:url(assets/grain.png);background-size:120px 120px;opacity:.1}
+.roombg{position:fixed;inset:0;z-index:0;pointer-events:none;will-change:transform;background:#140806 url(assets/room-bg-dim.webp) center/cover no-repeat}
+@media (max-width:700px){.roombg{background-image:url(assets/room-bg-sm-dim.webp)}}
 .grain{background-image:url(assets/grain.png);background-size:120px 120px}
 .hero{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.1fr);gap:48px;align-items:center}
 .facts{display:grid;grid-template-columns:repeat(2,minmax(0,1fr))}
@@ -50,7 +50,7 @@ details[open] .plus{transform:rotate(45deg)}
 .mono.on{opacity:1;transform:none}
 .mono p{margin:0;max-width:760px;padding:16px 56px;background:linear-gradient(to right,rgba(0,0,0,0),rgba(0,0,0,.88) 18%,rgba(0,0,0,.88) 82%,rgba(0,0,0,0));font-family:'Nanum Myeongjo',serif;font-size:21px;line-height:1.6;color:#F3E9D6;text-align:center}
 .flora{position:fixed;inset:0;pointer-events:none;z-index:0}
-.sway{position:absolute;bottom:-6px;transform-origin:50% 100%;animation:sway 7s ease-in-out infinite}
+.sway{will-change:transform;position:absolute;bottom:-6px;transform-origin:50% 100%;animation:sway 7s ease-in-out infinite}
 .sway svg{display:block;width:100%;height:100%;transition:clip-path .9s cubic-bezier(.2,.7,.2,1)}
 .sway path{transition:fill .8s,stroke .8s}
 .vine{position:absolute;top:0;bottom:0;width:150px}
@@ -83,20 +83,17 @@ html{scroll-behavior:auto}
 .sway svg,.vine svg,.sway path{transition:none}
 }
 </style>
-<style>:root{--bg:#4A2D1C;--bgFilter:brightness(.62) saturate(1.12);--green:.75;--tint:0;--shade:.12;--warm:1;--red:0;--grain:.18;--clipTop:0%;--brainFilter:none;--gaugeText:#F3E9D6;--cmpRatio:16 / 9;--cmpClip:0%;--cmpLine:100%}</style>
+<style>:root{--bg:#4A2D1C;--green:.75;--veil:rgba(7,3,2,.05);--warm:1;--red:0;--clipTop:0%;--brainFilter:none;--gaugeText:#F3E9D6;--cmpRatio:16 / 9;--cmpClip:0%;--cmpLine:100%}</style>
 <noscript><style>.mono{opacity:1;transform:none}</style></noscript>
 </head>
 <body>
 <div id="top" style="position: relative; min-height: 100vh; background-color: var(--bg); color: #F3E9D6; font-family: 'IBM Plex Sans KR', system-ui, sans-serif; transition: background-color .7s ease">
 
-  <div aria-hidden="true" class="roombg" style="filter: var(--bgFilter); transition: filter .7s"></div>
-  <div aria-hidden="true" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; background: #4E8A45; mix-blend-mode: soft-light; opacity: var(--green); transition: opacity .7s"></div>
-  <div aria-hidden="true" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(70% 60% at 30% 70%, rgba(70,120,60,.22), rgba(70,120,60,0) 70%); opacity: var(--green); transition: opacity .7s"></div>
-  <div aria-hidden="true" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; background: #8E1410; mix-blend-mode: multiply; opacity: var(--tint); transition: opacity .7s"></div>
-  <div aria-hidden="true" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; background: #070302; opacity: var(--shade); transition: opacity .7s"></div>
+  <div aria-hidden="true" class="roombg"></div>
+  <div aria-hidden="true" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; background: radial-gradient(70% 60% at 30% 70%, rgba(70,120,60,.32), rgba(64,112,52,.14) 75%); will-change: opacity; opacity: var(--green); transition: opacity .7s"></div>
+  <div aria-hidden="true" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; background: var(--veil); transition: background-color .7s"></div>
   <div aria-hidden="true" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: var(--warm); background: radial-gradient(55% 45% at 80% 14%, rgba(255,190,110,.2), rgba(255,190,110,0) 70%); transition: opacity .7s"></div>
   <div aria-hidden="true" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: var(--red); background: radial-gradient(75% 70% at 50% 45%, rgba(120,8,6,0) 30%, rgba(150,12,8,.5) 72%, rgba(30,0,0,.92) 100%); transition: opacity .7s"></div>
-  <div aria-hidden="true" class="grain" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: var(--grain); mix-blend-mode: overlay"></div>
   <div aria-hidden="true" class="flicker" id="flicker" style="position: fixed; inset: 0; pointer-events: none; z-index: 0; background: #000"></div>
 
   <div class="flora" aria-hidden="true" id="flora"></div>
@@ -149,7 +146,7 @@ html{scroll-behavior:auto}
             <span style="display: block; position: relative; overflow: hidden; aspect-ratio: 16 / 9; background: #0A0403">
               <img src="assets/piano-warm.webp" alt="안락온실 피아노 방 장면" width="1280" height="720" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; filter: saturate(.8) contrast(1.08) brightness(.9)">
               <img class="flash" src="assets/piano-red.webp" alt="" aria-hidden="true" style="position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; opacity: 0">
-              <span class="grain" aria-hidden="true" style="position: absolute; inset: 0; opacity: .5; mix-blend-mode: overlay"></span>
+              <span class="grain" aria-hidden="true" style="position: absolute; inset: 0; opacity: .3"></span>
               <span aria-hidden="true" style="position: absolute; inset: 0; background: radial-gradient(80% 75% at 50% 45%, rgba(0,0,0,0) 45%, rgba(0,0,0,.65) 100%)"></span>
             </span>
             <span style="position: absolute; left: 10px; right: 10px; bottom: 10px; display: flex; align-items: center; gap: 14px; padding: 44px 18px 16px; background: linear-gradient(to top, rgba(6,3,2,.94), rgba(6,3,2,0))">
@@ -323,11 +320,11 @@ html{scroll-behavior:auto}
               <span aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 22%; background: linear-gradient(to top, rgba(240,230,207,1), rgba(240,230,207,0))"></span>
             </a>
             <dl style="margin: 0; display: flex; flex-direction: column; border-bottom: 1px solid #C9B999">
-              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 78px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px">브랜치</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">개인 브랜치에서 작업, 시작 전 main merge</dd></div>
-              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 78px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px">씬 분리</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">각자 개인 씬에서 작업해 같은 씬 충돌 차단</dd></div>
-              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 78px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px">공용 자산</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">프리팹·에셋 원본은 수정 금지, 씬에서만 수정</dd></div>
-              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 78px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px">계층 규칙</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">방 › 가구(빈 부모) › 모델. 부모는 위치·회전, 모델은 크기만</dd></div>
-              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 78px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px">에셋 관리</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">지정 폴더, 고폴리 에셋은 배치 전 공유</dd></div>
+              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 92px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px; word-break: keep-all">브랜치</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">개인 브랜치에서 작업, 시작 전 main merge</dd></div>
+              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 92px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px; word-break: keep-all">씬 분리</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">각자 개인 씬에서 작업해 같은 씬 충돌 차단</dd></div>
+              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 92px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px; word-break: keep-all">공용 자산</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">프리팹·에셋 원본은 수정 금지, 씬에서만 수정</dd></div>
+              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 92px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px; word-break: keep-all">계층 규칙</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">방 › 가구(빈 부모) › 모델. 부모는 위치·회전, 모델은 크기만</dd></div>
+              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 92px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px; word-break: keep-all">에셋 관리</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">지정 폴더, 고폴리 에셋은 배치 전 공유</dd></div>
             </dl>
             <a href="assets/anrak-furniture-guide.pdf" target="_blank" rel="noopener" download="안락온실_가구배치작업가이드.pdf" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; background: #24140E; color: #F1E7D0; text-decoration: none; font-size: 15px; font-weight: 500">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"></path></svg>
@@ -345,9 +342,9 @@ html{scroll-behavior:auto}
               <span aria-hidden="true" style="position: absolute; left: 0; right: 0; bottom: 0; height: 22%; background: linear-gradient(to top, rgba(240,230,207,1), rgba(240,230,207,0))"></span>
             </a>
             <dl style="margin: 0; display: flex; flex-direction: column; border-bottom: 1px solid #C9B999">
-              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 78px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px">핵심 시스템</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">GameManager, GameFlowManager 등 주요 클래스의 역할과 사용법</dd></div>
-              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 78px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px">데이터 테이블</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">스프레드시트를 메뉴 한 번으로 불러오는 순서</dd></div>
-              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 78px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px">코딩 컨벤션</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">식별자 표기법과 UI_·Puzzle_·GameFlow 같은 이름 접두사</dd></div>
+              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 92px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px; word-break: keep-all">핵심 시스템</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">GameManager, GameFlowManager 등 주요 클래스의 역할과 사용법</dd></div>
+              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 92px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px; word-break: keep-all">데이터 테이블</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">스프레드시트를 메뉴 한 번으로 불러오는 순서</dd></div>
+              <div style="display: flex; gap: 14px; padding: 11px 0; border-top: 1px solid #C9B999"><dt style="width: 92px; flex: none; font-size: 13px; font-weight: 600; color: #6B4A33; padding-top: 2px; word-break: keep-all">코딩 컨벤션</dt><dd style="margin: 0; font-size: 15px; line-height: 1.55">식별자 표기법과 UI_·Puzzle_·GameFlow 같은 이름 접두사</dd></div>
             </dl>
             <a href="assets/anrak-dev-onboarding-guide.pdf" target="_blank" rel="noopener" download="안락온실_개발온보딩가이드.pdf" style="align-self: flex-start; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 16px; background: #24140E; color: #F1E7D0; text-decoration: none; font-size: 15px; font-weight: 500">
               <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" aria-hidden="true"><path d="M12 4v11M7 10l5 5 5-5M5 20h14"></path></svg>
@@ -409,6 +406,7 @@ html{scroll-behavior:auto}
 function hexToRgb(h){h=h.replace('#','');return [parseInt(h.slice(0,2),16),parseInt(h.slice(2,4),16),parseInt(h.slice(4,6),16)];}
 function mixHex(a,b,t){var x=hexToRgb(a),y=hexToRgb(b);return '#'+[0,1,2].map(function(i){var v=Math.round(x[i]+(y[i]-x[i])*t);return (v<16?'0':'')+v.toString(16);}).join('');}
 function clamp(v,a,b){return Math.max(a,Math.min(b,v));}
+function veilColor(t,sh){var ta=0.55*t, a=1-(1-ta)*(1-sh); if(a<=0.001) return 'rgba(0,0,0,0)'; var w=ta*(1-sh)/a; return 'rgba('+Math.round(120*w+7*(1-w))+','+Math.round(14*w+3*(1-w))+','+Math.round(10*w+2*(1-w))+','+a.toFixed(3)+')';}
 function f1(n){return n.toFixed(1);}
 function rng(seed){var s=seed%2147483647;if(s<=0)s+=2147483646;return function(){s=(s*16807)%2147483647;return (s-1)/2147483646;};}
 function leafPath(x,y,a,L,W){
@@ -585,18 +583,30 @@ var VINES=[makeVine(4242),makeVine(9191)];
   var monos=[].slice.call(document.querySelectorAll('[data-mono]'));
   var flicker=document.getElementById('flicker'), gval=document.getElementById('gval'), gaugeBox=document.getElementById('gaugeBox');
 
+  var lastGq=-1;
+  function paintPlants(gq){
+    var grow=clamp((90-gq)/66,0,1);
+    var leaf=mixHex('#2A3118','#A8120E',clamp((62-gq)/45,0,1));
+    var stroke=mixHex(leaf,'#050101',0.6);
+    frondEls.forEach(function(o){
+      var l=o.l, local=clamp((grow-l.d*0.4)/(1-l.d*0.4),0,1);
+      paint(o,leaf,stroke);
+      o.svg.style.clipPath=local>=0.999?'none':'inset('+((1-local)*100).toFixed(1)+'% 0 0 0)';
+    });
+    var vineGrow=clamp((70-gq)/62,0,1), vstroke=mixHex(leaf,'#050101',0.55);
+    vineEls.forEach(function(o){ paint(o,leaf,vstroke); o.svg.style.clipPath=vineGrow>=0.999?'none':'inset('+((1-vineGrow)*100).toFixed(1)+'% 0 0 0)'; });
+
+  }
+
   function render(){
     var g=state.g, end=state.end;
     var red=Math.pow(1-g/100,1.1);
     var dim=red*(1-end*0.6);
     root.style.setProperty('--bg',mixHex(mixHex('#4A2D1C','#1A0504',red),'#1C1817',end*0.85));
-    root.style.setProperty('--bgFilter','brightness('+(0.62-0.32*dim).toFixed(2)+') saturate('+(1.12-0.67*dim).toFixed(2)+')');
     root.style.setProperty('--green',(Math.pow(g/100,1.4)*0.75).toFixed(2));
-    root.style.setProperty('--tint',(red*0.95*(1-end*0.85)).toFixed(2));
-    root.style.setProperty('--shade',(0.12+0.38*red*(1-end*0.5)).toFixed(2));
+    root.style.setProperty('--veil',veilColor(red*0.95*(1-end*0.85),0.05+0.6*dim));
     root.style.setProperty('--warm',(g/100).toFixed(2));
     root.style.setProperty('--red',(red*(1-end*0.9)).toFixed(2));
-    root.style.setProperty('--grain',(0.18+red*0.32).toFixed(2));
     root.style.setProperty('--clipTop',(100-g)+'%');
     var low=g<=20;
     root.style.setProperty('--brainFilter',low?'saturate(5) brightness(.78) hue-rotate(-8deg)':'none');
@@ -604,17 +614,8 @@ var VINES=[makeVine(4242),makeVine(9191)];
     gval.textContent=g; gaugeBox.setAttribute('aria-label','안락 수치 '+g+'%');
     flicker.className=(g<40&&end<0.5)?'flicker on':'flicker';
 
-    var grow=clamp((90-g)/66,0,1);
-    var leaf=mixHex('#2A3118','#A8120E',clamp((62-g)/45,0,1));
-    var stroke=mixHex(leaf,'#050101',0.6);
-    frondEls.forEach(function(o){
-      var l=o.l, local=clamp((grow-l.d*0.4)/(1-l.d*0.4),0,1);
-      paint(o,leaf,stroke);
-      o.svg.style.clipPath=local>=0.999?'none':'inset('+((1-local)*100).toFixed(1)+'% 0 0 0)';
-    });
-    var vineGrow=clamp((70-g)/62,0,1), vstroke=mixHex(leaf,'#050101',0.55);
-    vineEls.forEach(function(o){ paint(o,leaf,vstroke); o.svg.style.clipPath=vineGrow>=0.999?'none':'inset('+((1-vineGrow)*100).toFixed(1)+'% 0 0 0)'; });
-
+    var gq=Math.round(g/4)*4;
+    if(gq!==lastGq){ lastGq=gq; paintPlants(gq); }
     keyEls.forEach(function(a,i){ a.className='wk'+(state.idx===i+1?' on':''); if(state.idx===i+1) a.setAttribute('aria-current','true'); else a.removeAttribute('aria-current'); });
     monos.forEach(function(m){ var n=Number(m.getAttribute('data-mono')); m.className=state.seen>=n?'mono on':'mono'; });
   }
